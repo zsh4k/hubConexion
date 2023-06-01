@@ -1,39 +1,36 @@
 #!/bin/bash
 
-for arg in "$@"; do
-    if [ "$arg" = "test" ]; then
-        echo Probar conexion SSH con github
-        ssh -T git@github.com
-    elif [ "$arg" = "" ]; then
-        echo Claves SSH en el equipo
-        ls -al ~/.ssh
+if [ "$1" = "test" ]; then
+    echo Probar conexion SSH con github
+    ssh -T git@github.com
+else
+    echo Claves SSH en el equipo:
+    ls -al ~/.ssh
 
-        echo Escribe tu correo de github
+    echo Escribe tu correo de github
 
-        read correo
+    read correo
 
-        echo Generando clave publica y privada ...
+    echo Generando clave publica y privada ...
 
-        echo Listo... si quieres agrega una frase de seguridad
+    echo Listo... si quieres agrega una frase de seguridad
 
-        ssh-keygen -t ed25519 -C '"'"$correo"'"'
+    ssh-keygen -t ed25519 -C '"'"$correo"'"'
 
-        echo Iniciando agente ssh en segundo plano
+    echo Iniciando agente ssh en segundo plano
 
-        eval "$(ssh-agent -s)"
+    eval "$(ssh-agent -s)"
 
-        echo Agregando  clave privada al agente SSH
+    echo Agregando clave privada al agente SSH
 
-        ssh-add ~/.ssh/id_ed25519
+    ssh-add ~/.ssh/id_ed25519
 
-        echo Esta es tu clave publica ...
+    echo Esta es tu clave publica ...
 
-        cat ~/.ssh/id_ed25519.pub
+    cat ~/.ssh/id_ed25519.pub
 
-        echo ... agregala en "https://github.com/settings/keys"
+    echo ... agregala en "https://github.com/settings/keys"
 
-        echo 'despues de agregar la clave en github usa este comando para probar la conexion:  "hubConexion test"'
+    echo 'despues de agregar la clave en github usa este comando para probar la conexion:  "hubConexion test"'
 
-
-    fi
-done
+fi
