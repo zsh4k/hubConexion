@@ -1,0 +1,40 @@
+#!/bin/bash
+echo Claves SSH en el equipo
+
+ls -al ~/.ssh
+
+echo Escribe tu correo de github
+
+read correo
+
+echo Generando clave publica y privada ...
+
+echo Listo... si quieres agrega una frase de seguridad
+
+ssh-keygen -t ed25519 -C '"'"$correo"'"'
+
+echo Iniciando agente ssh en segundo plano
+
+eval "$(ssh-agent -s)"
+
+echo Agregando  clave privada al agente SSH
+
+ssh-add ~/.ssh/id_ed25519
+
+echo Esta es tu clave publica ...
+
+cat ~/.ssh/id_ed25519.pub
+
+echo ... agregala en "https://github.com/settings/keys"
+
+# Probar conexion SSH con github
+
+chmod +x conexion/probar.sh
+#./conexion/probar.sh
+
+echo "despues de agregar la clave en github usa este comando para probar la conexion:  ./conexion/probar.sh"
+
+cd
+
+#Aqui ya podemos usar git + github en este formato:
+# git clone git@github.com:zsh4k/nodeinstaller.git
