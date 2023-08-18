@@ -1,5 +1,21 @@
 # hubConexion
 
+## Instalacion
+
+```bash
+u=/usr/bin;n=hubConexion;cd $u;curl -O https://raw.githubusercontent.com/zsh4k/$n/main/$n;chmod +x $n;cd
 ```
-cd /usr/bin && wget https://raw.githubusercontent.com/zsh4k/hubConexion/main/hubConexion && chmod +x hubConexion && cd
+
+## Uso
+
+### Iniciar:
+
+```bash
+hubConexion
+```
+
+### Probar conexion a github:
+
+```bash
+hubConexion test
 ```
